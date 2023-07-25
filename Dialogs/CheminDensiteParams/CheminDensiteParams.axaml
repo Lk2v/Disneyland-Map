@@ -1,0 +1,79 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="DisneylandMap.Dialogs.CheminDensiteParamsWindow"
+        Title="Information chemin"
+
+        xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+
+        xmlns:components="clr-namespace:DisneylandMap.Components"
+
+        Width="425"
+        Height="250"
+
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+
+>
+    
+
+    <Panel>
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="Black"
+                    TintOpacity="1"
+                    MaterialOpacity="0.65" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+
+        <Grid Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+                
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="0" VerticalAlignment="Center">
+                        <components:AreteItem Chemin="{Binding Chemin}" Taille="75"/>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Chemin.LongueurFormat}"/>
+                            <Border Background="White" Height="10" Width="1" Margin="10,0"/>
+                            <TextBlock Text="{Binding Chemin.TempsParcoursFormat}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Border >
+                        
+                    </Border>
+
+                    <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="25,0">
+                        <TextBlock Classes="bold" Text="{Binding Chemin.I, StringFormat='Chemin n°{0}'}" HorizontalAlignment="Center" Margin="0,0,0, 20"/>
+
+                        <components:AreteDensiteIndicateur Densite="{Binding ValeurDensite}" Taille="50"/>
+                        
+                        <TextBlock Text="{Binding NbVisiteurs, StringFormat='Visiteur : {0}'}" TextAlignment="Center" Margin="0,5,0,0"/>
+
+                        <Slider Value="{Binding ValeurDensite}" Margin="0" Minimum="0" Maximum="1"/>
+                    </StackPanel>
+                    
+                </Grid>
+                
+
+                <Button Grid.Row="2" Classes="primary" Content="Envoyer" Command="{Binding Submit}" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" Margin="15,10"/>
+        </Grid>
+    </Panel>
+
+</Window>
