@@ -1,0 +1,33 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:DisneylandMap.Components"
+
+        xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+>
+
+    <Design.PreviewWith>
+        <controls:AttractionItem/>
+    </Design.PreviewWith>
+
+    <Style Selector="controls|AttractionItem">
+        <!-- Set Defaults -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border HorizontalAlignment="Stretch" Padding="10, 10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <controls:AttractionNum Grid.Column="0" Num="{TemplateBinding Num}" VerticalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="1" Text="{TemplateBinding Nom}" Margin="10,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+</Styles>

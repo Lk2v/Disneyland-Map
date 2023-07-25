@@ -1,0 +1,146 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DisneylandMap.Views.PlanView"
+
+             xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+
+             xmlns:components="clr-namespace:DisneylandMap.Components"
+>
+
+    <Grid>
+        <Grid.Background>
+          <RadialGradientBrush Center="50%, 50%" GradientOrigin="50%, 50%" Radius="1">
+            <RadialGradientBrush.GradientStops>
+              <GradientStops>
+                <GradientStop Color="#93b750" Offset="0"/>
+                <GradientStop Color="#307234" Offset="0.8"/>
+              </GradientStops>
+            </RadialGradientBrush.GradientStops>
+          </RadialGradientBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Panel Grid.Row="0" Margin="10">
+            <Button Classes="translucid" Padding="15,10" Command="{Binding GoHome}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+                    <i:Icon FontSize="20" Value="fa-solid fa-chevron-left"/>
+                    <TextBlock Classes="bold" Text="Retour" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <!--ITINERAIRE-->
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <ComboBox Items="{Binding ListeAttractions}" SelectedItem="{Binding AttractionSelectionnerDepart}" VerticalAlignment="Center">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <components:AttractionItem Num="{Binding Attraction.Num}" Nom="{Binding Attraction.Nom}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <i:Icon Value="fa-arrow-right-arrow-left" Height="42" Grid.Column="0" VerticalAlignment="Center" Margin="12,0"/>
+            
+                <ComboBox Items="{Binding ListeAttractions}" SelectedItem="{Binding AttractionSelectionnerArrivee}" VerticalAlignment="Center">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <components:AttractionItem Num="{Binding Attraction.Num}" Nom="{Binding Attraction.Nom}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Panel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Viewbox Grid.Column="1" Stretch="Uniform">
+                <Panel>
+                        <Image VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Source="/Assets/Images/carte.png"/>
+                        <components:Carte
+                            Sommets="{Binding ListeAttractions}"
+                            ItineraireChemins="{Binding ItineraireInfo.Parcours}"
+                            AttractionCommand="{Binding SelectionAttraction}"
+
+                            Depart="{Binding AttractionSelectionnerDepart}"
+                            Arrivee="{Binding AttractionSelectionnerArrivee}"
+                        />
+                </Panel>
+            </Viewbox>
+
+            <Panel Grid.Column="0" Width="300" VerticalAlignment="Stretch">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--ITINERAIRE-->
+                    <Panel Margin="10" IsVisible="{Binding ItineraireAffichee}">
+                        <components:ItineraireInfo Grid.Row="0" Num1="{Binding ItineraireInfo.Depart.Attraction.Num}" Num2="{Binding ItineraireInfo.Arrivee.Attraction.Num}" Temps="{Binding ItineraireInfo.TempsFormat}" Longueur="{Binding ItineraireInfo.DistanceFormat}" FlotMax="{Binding ItineraireInfo.FlotMax}" IsVisible="{Binding ItineraireInfo.Accessible}"/>
+
+                        <Border IsVisible="{Binding !ItineraireInfo.Accessible}" Background="{DynamicResource Red}" Padding="15" CornerRadius="12" Opacity="0.8">
+                            <StackPanel Orientation="Vertical" >
+                                <i:Icon FontSize="20" Value="fa-solid fa-triangle-exclamation"/>
+                                <TextBlock Classes="h4" Text="Inaccessible en raison du niveau de sécurité" TextAlignment="Center" TextWrapping="Wrap"/>
+                                <TextBlock Text="Les chemins menants aux deux attractions sont tous saturées" TextAlignment="Center" TextWrapping="Wrap" Margin="0,10,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </Panel>
+                    
+
+                    <!--CONTENUE-->
+                    <ScrollViewer Grid.Row="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!--LISTE GRAPHES-->
+
+                            <TextBlock Grid.Row="1" Classes="secondary" Text="{Binding ListeSousGraphes.Count, StringFormat='Sous-graphes ({0})'}" Margin="10,10"/>
+                            <ItemsControl Grid.Row="2" Background="Transparent" Items="{Binding ListeSousGraphes}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Classes="translucid" Padding="0" Command="{Binding DataContext.SelectionGraph, RelativeSource={RelativeSource AncestorType=UserControl}}}" CommandParameter="{Binding .}" HorizontalAlignment="Stretch">
+                                            <components:GraphItem Nom="{Binding Type}" Couleur="{Binding Couleur}" Selectionner="{Binding Selectionner}"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                    
+                            <!--LISTE ATTRACTIONS-->
+
+                            <TextBlock Grid.Row="3" Classes="secondary" Text="{Binding ListeAttractions.Count, StringFormat='Attractions ({0})'}" Margin="10,5"/>
+                            <ItemsControl Grid.Row="4" Background="Transparent" Items="{Binding ListeAttractions}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Classes="translucid" Padding="0" Command="{Binding DataContext.SelectionAttraction, RelativeSource={RelativeSource AncestorType=UserControl}}}" CommandParameter="{Binding .}" HorizontalAlignment="Stretch">
+                                            <components:AttractionItem Num="{Binding Attraction.Num}" Nom="{Binding Attraction.Nom}"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+                    </ScrollViewer>
+
+                </Grid>
+                
+            </Panel>
+        </Grid>
+    </Grid>
+</UserControl>

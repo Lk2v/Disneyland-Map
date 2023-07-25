@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <TrimmerRootAssembly Include="Avalonia.Themes.Fluent" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.19" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.19" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.19" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.19" />
+    <PackageReference Include="Avalonia.Svg.Skia" Version="0.10.18" />
+    <PackageReference Include="XamlNameReferenceGenerator" Version="1.6.1" />
+    <PackageReference Include="Projektanker.Icons.Avalonia.FontAwesome" Version="5.12.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Views\" />
+    <None Remove="Views\Home\" />
+    <None Remove="Assets\" />
+    <None Remove="Assets\Images\" />
+    <None Remove="Assets\Images\logo.png" />
+    <None Remove="Styles\" />
+    <None Remove="src\" />
+    <None Remove="Assets\Images\disneyland_park.svg" />
+    <None Remove="Assets\Images\walt_std_park.svg" />
+    <None Remove="Assets\Images\logo.svg" />
+    <None Remove="src\MessageBus\" />
+    <None Remove="Assets\Images\fond.jpeg" />
+    <None Remove="Assets\Images\carte.png" />
+    <None Remove="src\Graphe\" />
+    <None Remove="Dialogs\" />
+    <None Remove="Dialogs\CheminDensiteParams\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="Assets\" />
+    <Folder Include="Assets\Images\" />
+    <Folder Include="Styles\" />
+    <Folder Include="src\" />
+    <Folder Include="src\MessageBus\" />
+    <Folder Include="src\Graphe\" />
+    <Folder Include="Dialogs\" />
+    <Folder Include="Dialogs\CheminDensiteParams\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaXaml Remove="App.axaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="App.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+    <AvaloniaResource Include="Assets\Images\logo.png" />
+    <AvaloniaResource Include="Assets\Images\disneyland_park.svg" />
+    <AvaloniaResource Include="Assets\Images\walt_std_park.svg" />
+    <AvaloniaResource Include="Assets\Images\logo.svg" />
+    <AvaloniaResource Include="Assets\Images\fond.jpeg" />
+    <AvaloniaResource Include="Assets\Images\carte.png" />
+  </ItemGroup>
+</Project>

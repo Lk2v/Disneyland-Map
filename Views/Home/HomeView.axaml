@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DisneylandMap.Views.HomeView"
+
+             xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+
+             xmlns:mb="clr-namespace:DisneylandMap.src.MessageBus"
+             xmlns:components="clr-namespace:DisneylandMap.Components"
+>
+    
+    <Panel>
+
+        <!--<Image Source="/Assets/Images/fond.jpeg" Stretch="UniformToFill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>-->
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Svg Path="/Assets/Images/logo.svg" Height="100"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 25" Spacing="12">
+                <components:NavButton  Title="Parc Disneyland" HorizontalAlignment="Center" Command="{Binding Navigation}" CommandParameter="{x:Static mb:ViewSwitcherMessageBus.Map}">
+                    <Svg Path="/Assets/Images/disneyland_park.svg" Height="42"/>
+                </components:NavButton>
+
+                <!--<components:NavButton Image="/Assets/Images/walt_std_park.svg" Title="Parc Walt Disney Studios" HorizontalAlignment="Center" Command="{Binding Navigation}" CommandParameter="{x:Static mb:ViewSwitcherMessageBus.Map}"/>-->
+                <components:NavButton Title="Mode avancé" HorizontalAlignment="Center" Command="{Binding Navigation}" CommandParameter="{x:Static mb:ViewSwitcherMessageBus.Densite}">
+                    <i:Icon Value="fa-gear" FontSize="32"/>
+                </components:NavButton>
+
+            </StackPanel>
+        </StackPanel>
+
+        <TextBlock Classes="bold" Foreground="#20FFFFFF" Text="OLIVIER-CONDAT / MIAKINEN / SAADOUN" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="20"/>
+    </Panel>
+    
+
+</UserControl>

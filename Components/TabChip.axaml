@@ -1,0 +1,25 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:DisneylandMap.Components"
+
+        xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+>
+
+    <Design.PreviewWith>
+        <controls:TabChip/>
+    </Design.PreviewWith>
+
+    <Style Selector="controls|TabChip">
+        <!-- Set Defaults -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Button Padding="0" Classes="invisible" Command="{TemplateBinding Command}" CommandParameter="{TemplateBinding CommandParameter}">
+                    <Border Background="#10FFFFFF" BorderBrush="#80FFFFFF" BorderThickness="2" CornerRadius="12" Padding="10, 5">
+                        <TextBlock Classes="secondary" Text="{TemplateBinding Title}"/>
+                    </Border>
+                </Button>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+</Styles>
