@@ -1,5 +1,8 @@
 # Disneyland-Map
 
+Projet étudiant de gestion d'un parc d'attraction : calcul d'itinéraire entre deux attractions en prenant compte de l'affluence sur chacune des allées.
+En effet, pour des mesures de sécurité les allées staurées sont evitées pour la sécurité des visiteurs.
+
 ## Screenshots
 
 ![Screenshot](/Docs/Screenshots/1.png)
